@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build.prod": "ng build --aot --prod --progress false --base-href \"https://yuliana.me/arcreator-client/\""
+    "build.prod": "ng build --aot --prod --progress false --base-href \"/arcreator-client/\""
   },
   "private": true,
   "dependencies": {
