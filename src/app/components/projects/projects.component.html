@@ -7,12 +7,23 @@
   <div class=row>
     <div class="col s12 m4" *ngFor="let arapp of arapps.arApps">
       <div class="card accent-color">
-        <div class="card-content text-primary-color ">
+        <div class="card-content text-primary-color">
           <span class="card-title">{{ arapp.title }}</span>
-          <p>{{ arapp.description}}</p>
+          <p>{{ arapp.description }}</p>
         </div>
-        <div class="card-action"><a href="#" class="text-primary-color ">EDITAR  <i class="material-icons">brush</i></a></div>
+        <div class="card-action">
+          <a href="#" class="text-primary-color ">EDITAR
+            <i class="material-icons">brush</i>
+          </a>
+        </div>
       </div>
     </div>
   </div>
+  
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light default-primary-color">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+
 </div>

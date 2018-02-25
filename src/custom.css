@@ -26,3 +26,12 @@ h3, h4, h5 {
     margin-top: 60px;
     margin-bottom: 60px;
 }
+
+.vertical-container {
+    height: 600px;
+}
+
+.valign {
+    width:100%;
+}
+
