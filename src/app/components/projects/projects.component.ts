@@ -1,6 +1,6 @@
 import { Component, OnInit, Directive } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
-import { Arapps } from '../../interfaces/arapps'
+import { Arapps } from '../../interfaces/arapps';
 
 @Component({
   selector: 'app-projects',
@@ -9,11 +9,10 @@ import { Arapps } from '../../interfaces/arapps'
 })
 
 export class ProjectsComponent implements OnInit {
-
   arapps: Arapps;
   loadingProjects: boolean;
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService) {}
 
   ngOnInit() {
     this.loadingProjects = true;

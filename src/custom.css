@@ -1,3 +1,22 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body {
+    margin: 0;
+    font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+}
+
+mat-toolbar {
+    justify-content: space-between;
+}
+
+.done {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+}
+
+/*
+
 .dark-primary-color    { background: #303F9F !important; }
 .default-primary-color { background: #3F51B5 !important; }
 .light-primary-color   { background: #C5CAE9 !important; }
@@ -33,5 +52,4 @@ h3, h4, h5 {
 
 .valign {
     width:100%;
-}
-
+}*/

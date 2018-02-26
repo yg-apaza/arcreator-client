@@ -1,10 +1,24 @@
-<h2>My projects</h2>
-<h5>
+<h1>My projects</h1>
+<h2>
   Check all your existing projects or create a new one
-</h5>
+</h2>
 <div *apploading="loadingProjects">
+    <div class="col s12 m4" *ngFor="let arapp of arapps.arApps">
+      <mat-card class="example-card">
+        <mat-card-title>{{ arapp.title }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ arapp.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>
+            <mat-icon>mode_edit</mat-icon>
+            <span>EDITAR</span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  <!--div class=row>
 
-  <div class=row>
     <div class="col s12 m4" *ngFor="let arapp of arapps.arApps">
       <div class="card accent-color">
         <div class="card-content text-primary-color">
@@ -18,12 +32,14 @@
         </div>
       </div>
     </div>
-  </div>
-  
-  <div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light default-primary-color">
-      <i class="material-icons">add</i>
-    </a>
-  </div>
+
+  </div-->
 
 </div>
+
+<!--div class="fixed-action-btn">
+  <button data-target="createProjectModal" class="btn-floating btn-large waves-effect waves-light default-primary-color">
+      <i class="material-icons">add</i>
+  </button>
+  <button data-target="createProjectModal" class="btn modal-trigger red">Modal</button>
+</div-->
