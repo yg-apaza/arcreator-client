@@ -1,8 +1,25 @@
-<h1>My projects</h1>
-<h2>
+<h1 class="page-header">My projects</h1>
+<p>
   Check all your existing projects or create a new one
-</h2>
+</p>
+
 <div *apploading="loadingProjects">
+  <div class="row">
+    <div class="col col-md-4 col-sm-12" *ngFor="let arapp of arapps.arApps">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ arapp.title }}</h5>
+          <p class="card-text">{{ arapp.description }}</p>
+          <a href="#" class="card-link">
+            <i class="fa fa-pencil" aria-hidden="true"></i> EDITAR</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--div *apploading="loadingProjects">
     <div class="col s12 m4" *ngFor="let arapp of arapps.arApps">
       <mat-card class="example-card">
         <mat-card-title>{{ arapp.title }}</mat-card-title>
@@ -17,7 +34,7 @@
         </mat-card-actions>
       </mat-card>
     </div>
-  <!--div class=row>
+  <div class=row>
 
     <div class="col s12 m4" *ngFor="let arapp of arapps.arApps">
       <div class="card accent-color">
@@ -33,11 +50,11 @@
       </div>
     </div>
 
-  </div-->
+  </div>
 
 </div>
 
-<!--div class="fixed-action-btn">
+<div class="fixed-action-btn">
   <button data-target="createProjectModal" class="btn-floating btn-large waves-effect waves-light default-primary-color">
       <i class="material-icons">add</i>
   </button>

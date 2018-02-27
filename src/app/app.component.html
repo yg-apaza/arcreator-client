@@ -1,32 +1,22 @@
-<!--nav class="default-primary-color">
-  <div class="nav-wrapper container">
-    <a routerLink="/" routerLinkActive="active" class="brand-logo">ARCreator</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a>Username</a></li>
-    </ul>
-  </div>
-</nav-->
-<mat-toolbar color="primary" class="mat-elevation-z6">
-  <span>ARCreator</span>
-  <button mat-button [mat-menu-trigger-for]="menu">
-    Username
-  </button>
-</mat-toolbar>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a routerLink="/" routerLinkActive="active" class="navbar-brand">ARCreator</a>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-primary" id="userActions" ngbDropdownToggle>Username</button>
+        <div ngbDropdownMenu aria-labelledby="userActions">
+          <button class="dropdown-item">
+            <i class="fa fa-fw fa-user"></i>Profile
+          </button>
+          <button class="dropdown-item">
+            <i class="fa fa-fw fa-sign-out"></i>Logout
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</nav>
 
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>account_box</mat-icon>
-    <span>Profile</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>exit_to_app</mat-icon>
-    <span>Logout</span>
-  </button>
-</mat-menu>
-
-<span class="done">
-  <button mat-fab>
-    <mat-icon>add</mat-icon>
-  </button>
-</span>
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
