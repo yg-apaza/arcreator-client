@@ -1,4 +1,5 @@
 import { Component, OnInit, Directive } from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ProjectService } from '../../services/project.service';
 import { Arapps } from '../../interfaces/arapps';
 
@@ -12,7 +13,7 @@ export class ProjectsComponent implements OnInit {
   arapps: Arapps;
   loadingProjects: boolean;
 
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService, private modalService: NgbModal) {}
 
   ngOnInit() {
     this.loadingProjects = true;
@@ -27,6 +28,10 @@ export class ProjectsComponent implements OnInit {
           console.log("Error occured");
         }
       );
+  }
+  
+  openModal(content){
+    this.modalService.open(content);
   }
 
 }

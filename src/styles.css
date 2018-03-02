@@ -1,4 +1,18 @@
-.page-header{
+.page-header {
     margin-top: 2rem;
     margin-bottom: 2rem;
+}
+
+.vertical-container {
+    height: 300px;
+}
+
+.dashed-card {
+    border-style: dashed;
+    border-color: var(--primary);
+    border-width: 4px;
+}
+
+.clickable {
+    cursor: pointer;
 }
