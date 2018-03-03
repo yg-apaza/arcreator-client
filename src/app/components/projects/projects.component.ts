@@ -1,7 +1,9 @@
 import { Component, OnInit, Directive } from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectService } from '../../services/project.service';
 import { ReadAllSummaryResponse } from '../../interfaces/responses/readallsummaryresponse';
+import { CreateRequest } from '../../interfaces/requests/createrequest';
 
 @Component({
   selector: 'app-projects',
@@ -12,26 +14,57 @@ import { ReadAllSummaryResponse } from '../../interfaces/responses/readallsummar
 export class ProjectsComponent implements OnInit {
   readAllSummaryResponse: ReadAllSummaryResponse;
   loadingProjects: boolean;
+  createRequest: CreateRequest;
+  createProjectModalReference: NgbModalRef;
 
-  constructor(private projectService: ProjectService, private modalService: NgbModal) {}
+  constructor(private router: Router, private projectService: ProjectService, private modalService: NgbModal) { }
 
   ngOnInit() {
+
+    this.loadProjects();
+
+    this.createRequest = {
+      title: "",
+      description: "",
+      framework: "artoolkit",
+      author: "John Doe",
+      markers: [],
+      resources: [],
+      interfaces: []
+
+    };
+  }
+
+  openModal(content) {
+    this.createProjectModalReference = this.modalService.open(content);
+  }
+
+  private loadProjects(){
     this.loadingProjects = true;
-    this.projectService.getAllArapps()
+
+    this.projectService.getAllSummaryArApps()
       .subscribe(
         res => {
-          console.log(res);
           this.readAllSummaryResponse = res.body;
           this.loadingProjects = false;
         },
         err => {
-          console.log("Error occured");
+          console.log("Error occurred");
         }
       );
   }
-  
-  openModal(content){
-    this.modalService.open(content);
+
+  createProject() {
+    this.projectService.createArApp(this.createRequest)
+      .subscribe(
+        res => {
+          this.loadProjects();
+          this.createProjectModalReference.close();
+        },
+        err => {
+          console.log("Error occurred");
+        }
+      );
   }
 
 }

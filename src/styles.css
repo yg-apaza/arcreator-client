@@ -36,6 +36,6 @@ label>input:checked+img {
     border: 8px solid var(--success);
 }
 
-.card-margin{
+.card-margin {
     margin-bottom: 1rem;
 }

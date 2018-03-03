@@ -9,4 +9,3 @@ type ArappSummary = {
 export interface ReadAllSummaryResponse {
     arApps: Array<ArappSummary>
 }
-
