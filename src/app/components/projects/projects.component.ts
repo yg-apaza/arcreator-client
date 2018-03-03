@@ -1,7 +1,7 @@
 import { Component, OnInit, Directive } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ProjectService } from '../../services/project.service';
-import { Arapps } from '../../interfaces/arapps';
+import { ReadAllSummaryResponse } from '../../interfaces/responses/readallsummaryresponse';
 
 @Component({
   selector: 'app-projects',
@@ -10,7 +10,7 @@ import { Arapps } from '../../interfaces/arapps';
 })
 
 export class ProjectsComponent implements OnInit {
-  arapps: Arapps;
+  readAllSummaryResponse: ReadAllSummaryResponse;
   loadingProjects: boolean;
 
   constructor(private projectService: ProjectService, private modalService: NgbModal) {}
@@ -21,7 +21,7 @@ export class ProjectsComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.arapps = res.body;
+          this.readAllSummaryResponse = res.body;
           this.loadingProjects = false;
         },
         err => {

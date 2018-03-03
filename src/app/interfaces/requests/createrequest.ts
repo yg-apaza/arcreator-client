@@ -11,7 +11,7 @@ type Interface = {
     resourceName: string
 }
 
-type Arapp = {
+export interface CreateRequest {
     title: string,
     description: string,
     framework: string,
@@ -19,8 +19,4 @@ type Arapp = {
     markers: Array<string>,
     resources: Array<Resource>,
     interfaces: Array<Interface>
-}
-
-export interface Arapps {
-    arApps: Array<Arapp>
 }

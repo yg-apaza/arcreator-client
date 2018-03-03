@@ -4,7 +4,7 @@
 <div *apploading="loadingProjects">
   <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch">
-      <div class="card w-100 dashed-card text-center text-primary clickable" (click)="openModal(createProject)">
+      <div class="card w-100 dashed-card text-center text-primary card-margin clickable" (click)="openModal(createProject)">
         <div class="card-body">
           <p class="card-text">
             <i class="fa fa-5x fa-plus"></i>
@@ -13,8 +13,8 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let arapp of arapps.arApps">
-      <div class="card w-100">
+    <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let arapp of readAllSummaryResponse.arApps">
+      <div class="card w-100 card-margin">
         <div class="card-body">
           <h5 class="card-title">{{ arapp.title }}</h5>
           <p class="card-text">{{ arapp.description }}</p>
@@ -35,15 +35,9 @@
   </div>
   <div class="modal-body">
     <form>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputTitle">Title</label>
-          <input type="email" class="form-control" id="inputTitle" placeholder="Title">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputAuthor">Author</label>
-          <input type="email" class="form-control" id="inputAuthor" placeholder="Author">
-        </div>
+      <div class="form-group">
+        <label for="inputTitle">Title</label>
+        <input type="email" class="form-control" id="inputTitle" placeholder="Title">
       </div>
       <div class="form-group">
         <label for="inputDescription">Description</label>
@@ -53,26 +47,26 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="frameworks" id="radioARToolKit" value="artoolkit" checked>
             <label class="form-check-label" for="radioARToolKit">
               Fiducial marker
+              <input class="form-check-input" type="radio" name="frameworks" id="radioARToolKit" value="artoolkit" checked>
+              <img src="assets/fiducial_marker.jpg" class="img-fluid">
             </label>
-            <img src="assets/fiducial_marker.jpg" class="img-fluid">
           </div>
         </div>
         <div class="form-group col-md-6">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="frameworks" id="radioVuforia" value="vuforia" checked>
             <label class="form-check-label" for="radioVuforia">
               Natural marker
+              <input class="form-check-input" type="radio" name="frameworks" id="radioVuforia" value="vuforia">
+              <img src="assets/natural_marker.jpg" class="img-fluid">
             </label>
-            <img src="assets/natural_marker.jpg" class="img-fluid">
           </div>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-outline-primary" (click)="c()">SIGN IN</button>
+    <button type="submit" class="btn btn-outline-success" (click)="c()">CREATE</button>
   </div>
 </ng-template>
