@@ -14,7 +14,7 @@
 
   <div class="col-12 col-sm-12 col-md-3 col-lg-2">
     <h3>Resources</h3>
-    <button type="button" class="bottom-margin btn btn-success mx-auto d-block" (click)="openAddResourceModal(adResourceModal)">
+    <button type="button" class="bottom-margin btn btn-success mx-auto d-block" (click)="openAddResourceModal(addResourceModal)">
       <i class="fa fa-plus"></i>
       Add resource
     </button>
@@ -37,7 +37,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="addMarker()" #createProjectForm="ngForm">
+    <form (ngSubmit)="addMarker()">
       <div class="form-row">
 
         <div class="form-group col-6 col-md-3 col-sm-4" *ngFor="let marker of availableMarkers">
@@ -49,7 +49,25 @@
           </div>
         </div>
       </div>
-      
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-success">OK</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #addResourceModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Resource</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-row">
+      </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-outline-success">OK</button>
       </div>
