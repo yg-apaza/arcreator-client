@@ -10,11 +10,16 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LoadingDirective } from './directives/loading.directive';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ProjectEditorComponent } from './components/project-editor/project-editor.component';
 
 const appRoutes: Routes = [
   {
     path: 'projects',
     component: ProjectsComponent
+  },
+  {
+    path: 'edit/:id',
+    component: ProjectEditorComponent
   },
   {
     path: '',
@@ -33,7 +38,8 @@ const appRoutes: Routes = [
     AppComponent,
     ProjectsComponent,
     PageNotFoundComponent,
-    LoadingComponent
+    LoadingComponent,
+    ProjectEditorComponent
   ],
   imports: [
     BrowserModule,

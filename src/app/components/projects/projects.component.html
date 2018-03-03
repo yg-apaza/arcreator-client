@@ -18,7 +18,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ arapp.title }}</h5>
           <p class="card-text">{{ arapp.description }}</p>
-          <a href="#" class="card-link">
+          <a href="#" class="card-link" [routerLink]="['/edit', arapp._id]">
             <i class="fa fa-pencil" aria-hidden="true"></i> EDITAR</a>
         </div>
       </div>

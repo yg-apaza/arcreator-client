@@ -17,7 +17,11 @@ export class ProjectsComponent implements OnInit {
   createRequest: CreateRequest;
   createProjectModalReference: NgbModalRef;
 
-  constructor(private router: Router, private projectService: ProjectService, private modalService: NgbModal) { }
+  constructor(
+    private router: Router,
+    private projectService: ProjectService,
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit() {
 
@@ -39,7 +43,7 @@ export class ProjectsComponent implements OnInit {
     this.createProjectModalReference = this.modalService.open(content);
   }
 
-  private loadProjects(){
+  private loadProjects() {
     this.loadingProjects = true;
 
     this.projectService.getAllSummaryArApps()
@@ -58,7 +62,8 @@ export class ProjectsComponent implements OnInit {
     this.projectService.createArApp(this.createRequest)
       .subscribe(
         res => {
-          this.loadProjects();
+          console.log("Created: " + res.body.id);
+          this.router.navigate(['/edit', res.body.id]);
           this.createProjectModalReference.close();
         },
         err => {
