@@ -1,3 +1,16 @@
 <div *apploading="loadingProjects">
-  <h1 class="page-header">{{ arApp.title }}</h1>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-9 col-lg-8">
+      <h1 class="page-header">{{ arApp.title }}</h1>
+      <p>{{ arApp.description }}</p>
+    </div>
+    <div class="col-12 col-sm-12 col-md-3 col-lg-4">
+      <button type="button" class="page-header btn btn-outline-primary btn-lg float-right">
+        <i class="fa fa-floppy-o"></i>
+        SAVE
+      </button>
+    </div>
+  </div>
+  <app-artoolkit-editor [arApp]="arApp"></app-artoolkit-editor>
+
 </div>

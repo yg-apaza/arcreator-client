@@ -4,7 +4,7 @@
 <div *apploading="loadingProjects">
   <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch">
-      <div class="card w-100 dashed-card text-center text-primary card-margin clickable" (click)="openModal(createProjectModal)">
+      <div class="card w-100 dashed-card text-center text-primary bottom-margin clickable" (click)="openModal(createProjectModal)">
         <div class="card-body">
           <p class="card-text">
             <i class="fa fa-5x fa-plus"></i>
@@ -13,12 +13,12 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let arapp of readAllSummaryResponse.arApps">
-      <div class="card w-100 card-margin">
+    <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let arApp of readAllSummaryResponse.arApps">
+      <div class="card w-100 bottom-margin">
         <div class="card-body">
-          <h5 class="card-title">{{ arapp.title }}</h5>
-          <p class="card-text">{{ arapp.description }}</p>
-          <a href="#" class="card-link" [routerLink]="['/edit', arapp._id]">
+          <h5 class="card-title">{{ arApp.title }}</h5>
+          <p class="card-text">{{ arApp.description }}</p>
+          <a href="#" class="card-link" [routerLink]="['/edit', arApp._id]">
             <i class="fa fa-pencil" aria-hidden="true"></i> EDITAR</a>
         </div>
       </div>

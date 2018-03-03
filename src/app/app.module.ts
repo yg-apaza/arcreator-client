@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { LoadingDirective } from './directives/loading.directive';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ProjectEditorComponent } from './components/project-editor/project-editor.component';
+import { ArtoolkitEditorComponent } from './components/project-editor/artoolkit-editor/artoolkit-editor.component';
 
 const appRoutes: Routes = [
   {
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     ProjectsComponent,
     PageNotFoundComponent,
     LoadingComponent,
-    ProjectEditorComponent
+    ProjectEditorComponent,
+    ArtoolkitEditorComponent
   ],
   imports: [
     BrowserModule,

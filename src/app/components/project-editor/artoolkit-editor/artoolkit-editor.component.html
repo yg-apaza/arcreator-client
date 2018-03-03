@@ -1,0 +1,58 @@
+<div class="row">
+
+  <div class="col-12 col-sm-12 col-md-3 col-lg-2">
+    <h3>Markers</h3>
+    <button type="button" class="bottom-margin btn btn-success mx-auto d-block" (click)="openAddMarkerModal(addMarkerModal)">
+      <i class="fa fa-plus"></i>
+      Add marker
+    </button>
+
+    <img src="{{ getMarkerPath(marker) }}" class="img-fluid bottom-margin" *ngFor="let marker of arApp.markers">
+
+
+  </div>
+
+  <div class="col-12 col-sm-12 col-md-3 col-lg-2">
+    <h3>Resources</h3>
+    <button type="button" class="bottom-margin btn btn-success mx-auto d-block" (click)="openAddResourceModal(adResourceModal)">
+      <i class="fa fa-plus"></i>
+      Add resource
+    </button>
+    <img src="assets/fiducial_marker.jpg" class="img-fluid">
+    <img src="assets/fiducial_marker.jpg" class="img-fluid">
+    <img src="assets/fiducial_marker.jpg" class="img-fluid">
+  </div>
+
+  <div class="col-12 col-sm-12 col-md-6 col-lg-8">
+    <h3>EDITOR AREA</h3>
+  </div>
+
+</div>
+
+<ng-template #addMarkerModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add marker</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="addMarker()" #createProjectForm="ngForm">
+      <div class="form-row">
+
+        <div class="form-group col-6 col-md-3 col-sm-4" *ngFor="let marker of availableMarkers">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" value="{{ marker.name }}" [(ngModel)]="markerSelected" name="markerselected">
+              <img src="{{ marker.path }}" class="img-fluid">
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-success">OK</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
