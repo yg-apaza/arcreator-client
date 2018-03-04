@@ -1,29 +1,37 @@
 <div class="row">
 
-  <div class="col-12 col-sm-12 col-md-3 col-lg-2">
-    <h3>Markers</h3>
-    <button type="button" class="bottom-margin btn btn-success mx-auto d-block" (click)="openAddMarkerModal(addMarkerModal)">
-      <i class="fa fa-plus"></i>
-      Add marker
-    </button>
-
-    <img src="{{ marker }}" class="img-fluid bottom-margin" *ngFor="let marker of markerImageList">
-
+  <div class="col-12 bottom-margin">
+    <ngb-accordion #acc="ngbAccordion">
+      <ngb-panel title="Markers">
+        <ng-template ngbPanelContent>
+          <button type="button" class="bottom-margin btn btn-success" (click)="openAddMarkerModal(addMarkerModal)">
+            <i class="fa fa-plus"></i>
+            Add marker
+          </button>
+          <div class="row">
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let marker of markerImageList">
+              <img src="{{ marker }}" class="img-fluid bottom-margin right-margin">
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel title="Resources">
+        <ng-template ngbPanelContent>
+          <button type="button" class="bottom-margin btn btn-success" (click)="openAddResourceModal(addResourceModal)">
+            <i class="fa fa-plus"></i>
+            Add resource
+          </button>
+          <div class="row">
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let resource of resourceImageList">
+              <img src="{{ resource }}" class="img-fluid bottom-margin right-margin">
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
   </div>
-
-  <div class="col-12 col-sm-12 col-md-3 col-lg-2">
-    <h3>Resources</h3>
-    <button type="button" class="bottom-margin btn btn-success mx-auto d-block" (click)="openAddResourceModal(addResourceModal)">
-      <i class="fa fa-plus"></i>
-      Add resource
-    </button>
-
-    <img src="{{ resource }}" class="img-fluid bottom-margin" *ngFor="let resource of resourceImageList">
-
-  </div>
-
-  <div class="col-12 col-sm-12 col-md-6 col-lg-8">
-    <h3>EDITOR AREA</h3>
+  <div class="col-12">
+    <h3>Editor Area</h3>
   </div>
 
 </div>
@@ -66,34 +74,42 @@
   </div>
   <div class="modal-body">
 
-    <div class="form-row">
+    <div class="form-row bottom-margin">
       <div class="col-10">
-        <input class="form-control" placeholder="Search" required [(ngModel)]="keywords" name="keywords">
+        <input class="form-control" placeholder="Enter keywords" required (keyup.enter)="searchKeywords()" [(ngModel)]="keywords"
+          name="keywords">
       </div>
       <div class="col-2">
-        <button class="btn btn-primary" (click)="searchKeywords()">
+        <button class="btn btn-primary btn-block" (click)="searchKeywords()">
           <i class="fa fa-search"></i>
         </button>
       </div>
     </div>
 
     <form (ngSubmit)="addResource()">
-
-      <div class="form-row">
-
-        <div class="form-group col-6 col-md-4 col-sm-4" *ngFor="let resource of resultResources">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" value="{{ resource.name.substring(7) }}" [(ngModel)]="selectedResourceUrl" name="selectedResourceUrl">
-              <img src="{{ resource.thumbnail.url }}" class="img-fluid">
-            </label>
+      <div class="card text-center text-secondary bottom-margin">
+        <div class="card-body">
+          <div *ngIf="showPlaceholderEmptySearch">
+            <p class="card-text">
+              <i class="fa fa-5x fa-search"></i>
+            </p>
+            <h5 class="card-text">We couldn't find any 3D objects matching your search</h5>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6 col-md-4 col-sm-4" *ngFor="let resource of resultResources">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" value="{{ resource.name.substring(7) }}" [(ngModel)]="selectedResourceUrl" name="selectedResourceUrl">
+                <img src="{{ resource.thumbnail.url }}" class="img-fluid">
+              </label>
+            </div>
           </div>
         </div>
-
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-outline-success">OK</button>
       </div>
     </form>
+
   </div>
+
 </ng-template>

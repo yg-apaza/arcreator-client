@@ -23,6 +23,7 @@ label>input {
     /* Makes input not-clickable */
     position: absolute;
     /* Remove input from document flow */
+    display: none;
 }
 
 label>input+img {
@@ -38,4 +39,8 @@ label>input:checked+img {
 
 .bottom-margin {
     margin-bottom: 1rem;
+}
+
+.right-margin {
+    margin-right: 1rem;
 }

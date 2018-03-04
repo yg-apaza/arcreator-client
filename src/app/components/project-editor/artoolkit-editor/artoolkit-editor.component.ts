@@ -26,6 +26,7 @@ export class ArtoolkitEditorComponent implements OnInit {
   markerImageList: Array<string>;
 
   // Add new resource
+  showPlaceholderEmptySearch: boolean;
   keywords: string;
   resultResources: Array<any>;
   selectedResourceUrl: string;
@@ -38,6 +39,7 @@ export class ArtoolkitEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.showPlaceholderEmptySearch = true;
     this.availableMarkers = Markers.availableMarkers;
     this.markerImageList = [];
     this.resourceImageList = [];
@@ -72,8 +74,11 @@ export class ArtoolkitEditorComponent implements OnInit {
   }
 
   addMarker() {
-    this.arApp.markers.push(this.selectedMarkerName);
-    this.markerImageList.push(this.getMarkerPath(this.selectedMarkerName));
+    if (this.selectedMarkerName && this.selectedMarkerName !== "") {
+      this.arApp.markers.push(this.selectedMarkerName);
+      this.markerImageList.push(this.getMarkerPath(this.selectedMarkerName));
+    }
+    
     this.addMarkerModalReference.close();
   }
 
@@ -86,6 +91,11 @@ export class ArtoolkitEditorComponent implements OnInit {
       .subscribe(
         res => {
           this.resultResources = res.body.assets;
+          if (this.resultResources && this.resultResources.length != 0)
+            this.showPlaceholderEmptySearch = false;
+          else
+            this.showPlaceholderEmptySearch = true;
+          this.selectedResourceUrl = "";
         },
         err => {
           console.log("Error occurred");
@@ -94,10 +104,13 @@ export class ArtoolkitEditorComponent implements OnInit {
   }
 
   addResource() {
-    this.arApp.resources.push({ name: this.selectedResourceUrl, type: 'poly', url: this.selectedResourceUrl });
-    this.getResourceThumbnail(this.selectedResourceUrl, (url) => {
-      this.resourceImageList.push(url);
-    });
+    if (this.selectedResourceUrl && this.selectedResourceUrl !== "") {
+      this.arApp.resources.push({ name: this.selectedResourceUrl, type: 'poly', url: this.selectedResourceUrl });
+      this.getResourceThumbnail(this.selectedResourceUrl, (url) => {
+        this.resourceImageList.push(url);
+      });
+    }
+
     this.addResourceModalReference.close();
   }
 
