@@ -22,7 +22,6 @@ export class ArtoolkitEditorComponent implements OnInit {
   // Add new marker
   availableMarkers: Array<any>;
   selectedMarkerName: string;
-  selectedMarkerImage: string;
 
   markerImageList: Array<string>;
 
@@ -74,7 +73,7 @@ export class ArtoolkitEditorComponent implements OnInit {
 
   addMarker() {
     this.arApp.markers.push(this.selectedMarkerName);
-    this.markerImageList.push(this.selectedMarkerImage);
+    this.markerImageList.push(this.getMarkerPath(this.selectedMarkerName));
     this.addMarkerModalReference.close();
   }
 
