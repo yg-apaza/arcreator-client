@@ -14,12 +14,12 @@ export class PolyService {
 
   constructor(private http: HttpClient) { }
 
-  list(polyListRequest: PolyListRequest): Observable<HttpResponse<any>> {
+  listAssets(polyListRequest: PolyListRequest): Observable<HttpResponse<any>> {
     return this.http.get<PolyListRequest>(PolyService.POLY_LIST_ENDPOINT, { params: { ...polyListRequest }, observe: 'response' });
   }
 
-  get(name: string, polyGetRequest: PolyGetRequest): Observable<HttpResponse<any>> {
-    return this.http.get<any>(PolyService.POLY_LIST_ENDPOINT + '/' + name + '/', { params: { ...polyGetRequest }, observe: 'response' });
+  getAsset(name: string, polyGetRequest: PolyGetRequest): Observable<HttpResponse<any>> {
+    return this.http.get<PolyGetRequest>(PolyService.POLY_LIST_ENDPOINT + '/' + name + '/', { params: { ...polyGetRequest }, observe: 'response' });
   }
 
 }

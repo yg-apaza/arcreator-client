@@ -3,8 +3,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Markers } from './markers';
 import { ReadResponse } from '../../../interfaces/responses/readresponse';
 import { PolyService } from '../../../services/poly.service';
-import { AppSettings } from '../../../appSettings'
-import { map, filter } from 'rxjs/operators';
+import { AppSettings } from '../../../appSettings';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-artoolkit-editor',
@@ -21,13 +21,17 @@ export class ArtoolkitEditorComponent implements OnInit {
 
   // Add new marker
   availableMarkers: Array<any>;
-  selectedMarker: string;
+  selectedMarkerName: string;
+  selectedMarkerImage: string;
+
+  markerImageList: Array<string>;
 
   // Add new resource
   keywords: string;
   resultResources: Array<any>;
-  selectedResource: string;
-  resourcesURLs: Array<string>;
+  selectedResourceUrl: string;
+
+  resourceImageList: Array<string>;
 
   constructor(
     private modalService: NgbModal,
@@ -36,6 +40,28 @@ export class ArtoolkitEditorComponent implements OnInit {
 
   ngOnInit() {
     this.availableMarkers = Markers.availableMarkers;
+    this.markerImageList = [];
+    this.resourceImageList = [];
+
+    for (let markerName of this.arApp.markers) {
+      this.markerImageList.push(this.getMarkerPath(markerName));
+    }
+
+    let promises = [];
+
+    for (let resourceUrl of this.arApp.resources) {
+      promises.push(new Promise((resolve, reject) => {
+        this.getResourceThumbnail(resourceUrl.url, (url) => {
+          resolve(url);
+        });
+      }));
+    }
+
+    Promise.all(promises)
+      .then((results) => {
+        this.resourceImageList = results;
+      });
+
   }
 
   openAddMarkerModal(content) {
@@ -47,17 +73,17 @@ export class ArtoolkitEditorComponent implements OnInit {
   }
 
   addMarker() {
-    this.arApp.markers.push(this.selectedMarker);
+    this.arApp.markers.push(this.selectedMarkerName);
+    this.markerImageList.push(this.selectedMarkerImage);
     this.addMarkerModalReference.close();
   }
 
-  getMarkerPath(name: string): string {
-    console.log("getMarkerPath");
+  private getMarkerPath(name: string): string {
     return this.availableMarkers.find(m => m.name == name).path;
   }
 
   searchKeywords() {
-    this.polyService.list({ keywords: this.keywords, format: 'OBJ', pageSize: '12', key: AppSettings.POLY_API_KEY })
+    this.polyService.listAssets({ keywords: this.keywords, format: 'OBJ', pageSize: '12', key: AppSettings.POLY_API_KEY })
       .subscribe(
         res => {
           this.resultResources = res.body.assets;
@@ -69,27 +95,23 @@ export class ArtoolkitEditorComponent implements OnInit {
   }
 
   addResource() {
-    this.arApp.resources.push({ name: this.selectedResource, type: 'poly', url: this.selectedResource });
-    console.log(this.arApp);
+    this.arApp.resources.push({ name: this.selectedResourceUrl, type: 'poly', url: this.selectedResourceUrl });
+    this.getResourceThumbnail(this.selectedResourceUrl, (url) => {
+      this.resourceImageList.push(url);
+    });
     this.addResourceModalReference.close();
   }
 
-  getResourceThumbnail(url: string): any {
-    console.log("getResourceThumbnail");
-    /*
-    this.polyService.get(url, { key: AppSettings.POLY_API_KEY })
+  private getResourceThumbnail(url: string, callback: (url: string) => any) {
+
+    this.polyService.getAsset(url, { key: AppSettings.POLY_API_KEY })
       .subscribe(
         res => {
-          console.log(res);
-          return res.body.thumbnail.url;
+          callback(res.body.thumbnail.url);
         },
         err => {
           console.log("Error occurred");
-          return "";
         }
-      );
-      */
-    return "";
-
+      )
   }
 }
