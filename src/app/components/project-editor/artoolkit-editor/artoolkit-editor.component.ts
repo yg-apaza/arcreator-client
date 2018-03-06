@@ -4,9 +4,6 @@ import { Markers } from './markers';
 import { ReadResponse } from '../../../interfaces/responses/readresponse';
 import { PolyService } from '../../../services/poly.service';
 import { AppSettings } from '../../../appSettings';
-//import Blockly from '../../../../../node_modules/google-blockly/blockly_compressed';
-
-
 
 declare var Blockly: any;
 
@@ -37,7 +34,6 @@ export class ArtoolkitEditorComponent implements OnInit {
   selectedResourceUrl: string;
 
   resourceImageList: Array<string>;
-
 
   public toolbox: string =
     `<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
@@ -398,7 +394,6 @@ export class ArtoolkitEditorComponent implements OnInit {
     <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
     <category name="Functions" colour="#9A5CA6" custom="PROCEDURE"></category>
 </xml>`;
-
 
 
   constructor(
