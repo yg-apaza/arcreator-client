@@ -81,6 +81,10 @@ export class ArtoolkitEditorComponent implements OnInit {
 
         this.createBlocks();
         this.addCustomBlocks();
+        
+        for (let i of this.arApp.interfaces) {
+            this.addInterface(i);
+        }
     }
 
     createBlocks() {
@@ -170,6 +174,28 @@ export class ArtoolkitEditorComponent implements OnInit {
 
             return [code, Blockly.JSON.ORDER_ATOMIC];
         };
+    }
+
+    addInterface(i) {
+        var event, action, eventConnection;
+
+        if (i.interfaceEvent == 1) {
+            event = Blockly.mainWorkspace.newBlock('marker_is_detected');
+            eventConnection = event.getInput('EVENT').connection;
+            event.setFieldValue(i.markerName, "MARKER_NAME");
+        }
+
+        if (i.interfaceAction == 1) {
+            action = Blockly.mainWorkspace.newBlock('augment_resource');
+            action.setFieldValue(i.resourceName, "RESOURCE_NAME");
+        }
+
+        eventConnection.connect(action.outputConnection);
+
+        event.initSvg();
+        event.render();
+        action.initSvg();
+        action.render();
     }
 
     openAddMarkerModal(content) {
