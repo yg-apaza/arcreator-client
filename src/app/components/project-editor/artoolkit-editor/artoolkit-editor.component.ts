@@ -81,9 +81,13 @@ export class ArtoolkitEditorComponent implements OnInit {
 
         this.createBlocks();
         this.addCustomBlocks();
-        
+
+        // Add interfaces
+        var current, nextConnection;
         for (let i of this.arApp.interfaces) {
-            this.addInterface(i);
+            current = this.addInterface(i);
+            current.previousConnection.connect(nextConnection);
+            nextConnection = current.nextConnection;
         }
     }
 
@@ -196,6 +200,7 @@ export class ArtoolkitEditorComponent implements OnInit {
         event.render();
         action.initSvg();
         action.render();
+        return event;
     }
 
     openAddMarkerModal(content) {
