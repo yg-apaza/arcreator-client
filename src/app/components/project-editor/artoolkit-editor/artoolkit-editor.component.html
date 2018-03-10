@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-12 bottom-margin">
+  <div class="col-4 bottom-margin">
     <ngb-accordion #acc="ngbAccordion">
       <ngb-panel title="Markers">
         <ng-template ngbPanelContent>
@@ -9,7 +9,7 @@
             Add marker
           </button>
           <div class="row">
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let marker of markerImageList; let i = index">
+            <div class="col-6 col-sm-12 col-md-12 col-lg-6" *ngFor="let marker of markerImageList; let i = index">
               <img src="{{ marker }}" class="img-fluid bottom-margin right-margin">
               <p class="text-center">{{ arApp.markers[i] }}</p>
             </div>
@@ -23,7 +23,7 @@
             Add resource
           </button>
           <div class="row">
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let resource of resourceImageList; let i = index">
+            <div class="col-6 col-sm-12 col-md-12 col-lg-6" *ngFor="let resource of resourceImageList; let i = index">
               <img src="{{ resource }}" class="img-fluid bottom-margin right-margin">
               <p class="text-center">{{ arApp.resources[i].name }}</p>
             </div>
@@ -33,7 +33,7 @@
     </ngb-accordion>
   </div>
 
-  <div class="col-12">
+  <div class="col-8">
     <h3>Editor Area</h3>
     <div id="blocklyArea">
       <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
