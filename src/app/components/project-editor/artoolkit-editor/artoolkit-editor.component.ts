@@ -110,6 +110,9 @@ export class ArtoolkitEditorComponent implements OnInit {
     }
 
     addCustomBlocks() {
+
+        // Block definitions
+
         Blockly.Blocks['marker_is_detected'] = {
             init: function () {
                 this.appendDummyInput()
@@ -140,29 +143,39 @@ export class ArtoolkitEditorComponent implements OnInit {
             }
         };
 
-        Blockly.JavaScript['augment_resource'] = function (block) {
-            var text_resource_name = block.getFieldValue('RESOURCE_NAME');
-            // TODO: Assemble JavaScript into code variable.
-            var code = text_resource_name;
-            // TODO: Change ORDER_NONE to the correct strength.
-            return [code, Blockly.JavaScript.ORDER_NONE];
+        // Custom JSON generator code
+
+        let eventJSONTemplate: string = '{ "interfaceEvent": $ , "markerName": "$" , $ }';
+
+        Blockly.JSON['marker_is_detected'] = function (block) {
+            var text_marker_name = block.getFieldValue('MARKER_NAME');
+            var value_action = Blockly.JSON.valueToCode(block, 'EVENT', Blockly.JSON.ORDER_ATOMIC);
+            var code =
+                eventJSONTemplate
+                    .replace('$', '1')
+                    .replace('$', text_marker_name)
+                    .replace('$', value_action);
+
+            return code;
         };
 
-        Blockly.JavaScript['marker_is_detected'] = function (block) {
-            var text_marker_name = block.getFieldValue('MARKER_NAME');
-            var value_event = Blockly.JavaScript.valueToCode(block, 'EVENT', Blockly.JavaScript.ORDER_ATOMIC);
-            // TODO: Assemble JavaScript into code variable.
-            var code = 'Join marker: ' + text_marker_name + ' with resource: ' + value_event;
-            return code;
+        let actionJSONTemplate: string = '"interfaceAction": $ , "resourceName": "$"';
+
+        Blockly.JSON['augment_resource'] = function (block) {
+            var text_resource_name = block.getFieldValue('RESOURCE_NAME');
+            var code =
+                actionJSONTemplate
+                    .replace('$', '1')
+                    .replace('$', text_resource_name);
+
+            return [code, Blockly.JSON.ORDER_ATOMIC];
         };
     }
 
     openAddMarkerModal(content) {
         this.addMarkerModalReference = this.modalService.open(content);
-        var code = Blockly.JavaScript.workspaceToCode(this.workspacePlayground);
-        console.log(code);
-
-
+        var code = Blockly.JSON.workspaceToCode(this.workspacePlayground);
+        console.log(JSON.parse(code));
     }
 
     openAddResourceModal(content) {
