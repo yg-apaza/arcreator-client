@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let marker of markerImageList; let i = index">
               <img src="{{ marker }}" class="img-fluid bottom-margin right-margin">
-              <p class="text-center">{{ availableMarkers[i].name }}</p>
+              <p class="text-center">{{ arApp.markers[i] }}</p>
             </div>
           </div>
         </ng-template>

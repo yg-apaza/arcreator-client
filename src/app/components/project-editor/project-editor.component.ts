@@ -4,6 +4,8 @@ import { ReadResponse } from '../../interfaces/responses/readresponse';
 import { ProjectService } from '../../services/project.service';
 import 'rxjs/add/operator/switchMap';
 
+declare var Blockly: any;
+
 @Component({
   selector: 'app-project-editor',
   templateUrl: './project-editor.component.html',
@@ -13,6 +15,7 @@ export class ProjectEditorComponent implements OnInit {
 
   arApp: ReadResponse;
   loadingProjects: boolean;
+  public alerts: Array<any> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +38,32 @@ export class ProjectEditorComponent implements OnInit {
           }
         )
     });
+  }
+
+  save() {
+    let code: string = Blockly.JSON.workspaceToCode();
+    this.arApp.interfaces = JSON.parse(code).interfaces;
+
+    this.projectService.updateArApp(this.arApp)
+      .subscribe(
+        res => {
+          this.alerts.push({
+            type: 'success',
+            message: 'Project saved !',
+          });
+        },
+        err => {
+          this.alerts.push({
+            type: 'danger',
+            message: 'An error occurred',
+          });
+        }
+      );
+  }
+
+  public closeAlert(alert: any) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
   }
 
 }

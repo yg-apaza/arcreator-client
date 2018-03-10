@@ -174,8 +174,6 @@ export class ArtoolkitEditorComponent implements OnInit {
 
     openAddMarkerModal(content) {
         this.addMarkerModalReference = this.modalService.open(content);
-        var code = Blockly.JSON.workspaceToCode(this.workspacePlayground);
-        console.log(JSON.parse(code));
     }
 
     openAddResourceModal(content) {

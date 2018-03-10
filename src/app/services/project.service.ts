@@ -7,6 +7,7 @@ import { CreateRequest } from '../interfaces/requests/createrequest';
 import { CreateResponse } from '../interfaces/responses/createresponse';
 import { ReadRequest } from '../interfaces/requests/readrequest';
 import { ReadResponse } from '../interfaces/responses/readresponse';
+import { UpdateRequest } from '../interfaces/requests/updaterequest';
 
 @Injectable()
 export class ProjectService {
@@ -24,4 +25,9 @@ export class ProjectService {
   createArApp(createRequest: CreateRequest): Observable<HttpResponse<CreateResponse>> {
     return this.http.post<CreateResponse>(AppSettings.API_ARAPP, createRequest, { observe: 'response' });
   }
+
+  updateArApp(updateRequest: UpdateRequest): Observable<HttpResponse<any>> {
+    return this.http.put<any>(AppSettings.API_ARAPP + '/' + updateRequest._id, updateRequest, { observe: 'response' });
+  }
+
 }

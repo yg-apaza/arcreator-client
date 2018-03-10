@@ -11,7 +11,7 @@ type Interface = {
     resourceName: string
 }
 
-export interface ReadResponse {
+export interface UpdateRequest {
     _id: string,
     title: string,
     description: string,

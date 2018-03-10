@@ -5,10 +5,15 @@
       <p>{{ arApp.description }}</p>
     </div>
     <div class="col-12 col-sm-12 col-md-3 col-lg-4">
-      <button type="button" class="page-header btn btn-outline-primary btn-lg float-lg-right float-sm-left">
+      <button type="button" class="page-header btn btn-outline-primary btn-lg float-lg-right float-sm-left" (click)="save()">
         <i class="fa fa-floppy-o"></i>
         SAVE
       </button>
+    </div>
+    <div class="col-12">
+      <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+      </p>
     </div>
   </div>
   <app-artoolkit-editor [arApp]="arApp"></app-artoolkit-editor>
