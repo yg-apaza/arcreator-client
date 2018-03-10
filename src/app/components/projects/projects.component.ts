@@ -72,4 +72,16 @@ export class ProjectsComponent implements OnInit {
       );
   }
 
+  removeProject(projectId, index) {
+    this.projectService.deleteArApp({ id: projectId })
+      .subscribe(
+        res => {
+          this.readAllSummaryResponse.arApps.splice(index, 1);
+        },
+        err => {
+          console.log("Error occurred");
+        }
+      );
+  }
+
 }

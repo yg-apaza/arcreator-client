@@ -13,13 +13,17 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let arApp of readAllSummaryResponse.arApps">
+    <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let arApp of readAllSummaryResponse.arApps; let i = index">
       <div class="card w-100 bottom-margin">
         <div class="card-body">
           <h5 class="card-title">{{ arApp.title }}</h5>
           <p class="card-text">{{ arApp.description }}</p>
-          <a href="#" class="card-link" [routerLink]="['/edit', arApp._id]">
-            <i class="fa fa-pencil" aria-hidden="true"></i> EDITAR</a>
+          <button class="btn btn-outline-primary" [routerLink]="['/edit', arApp._id]">
+            <i class="fa fa-pencil" aria-hidden="true"></i> EDIT
+          </button>
+          <button class="btn btn-outline-danger" (click)="removeProject(arApp._id, i)">
+            <i class="fa fa-trash-o" aria-hidden="true"></i> REMOVE
+          </button>
         </div>
       </div>
     </div>

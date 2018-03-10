@@ -8,6 +8,7 @@ import { CreateResponse } from '../interfaces/responses/createresponse';
 import { ReadRequest } from '../interfaces/requests/readrequest';
 import { ReadResponse } from '../interfaces/responses/readresponse';
 import { UpdateRequest } from '../interfaces/requests/updaterequest';
+import { DeleteRequest } from '../interfaces/requests/deleterequest';
 
 @Injectable()
 export class ProjectService {
@@ -28,6 +29,10 @@ export class ProjectService {
 
   updateArApp(updateRequest: UpdateRequest): Observable<HttpResponse<any>> {
     return this.http.put<any>(AppSettings.API_ARAPP + '/' + updateRequest._id, updateRequest, { observe: 'response' });
+  }
+
+  deleteArApp(deleteRequest: DeleteRequest): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(AppSettings.API_ARAPP + '/' + deleteRequest.id, { observe: 'response' });
   }
 
 }
