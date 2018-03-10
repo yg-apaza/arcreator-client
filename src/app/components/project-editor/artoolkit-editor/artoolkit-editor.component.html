@@ -9,8 +9,9 @@
             Add marker
           </button>
           <div class="row">
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let marker of markerImageList">
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let marker of markerImageList; let i = index">
               <img src="{{ marker }}" class="img-fluid bottom-margin right-margin">
+              <p class="text-center">{{ availableMarkers[i].name }}</p>
             </div>
           </div>
         </ng-template>
@@ -22,8 +23,9 @@
             Add resource
           </button>
           <div class="row">
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let resource of resourceImageList">
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let resource of resourceImageList; let i = index">
               <img src="{{ resource }}" class="img-fluid bottom-margin right-margin">
+              <p class="text-center">{{ arApp.resources[i].name }}</p>
             </div>
           </div>
         </ng-template>

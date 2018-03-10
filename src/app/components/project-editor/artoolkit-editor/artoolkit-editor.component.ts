@@ -35,15 +35,19 @@ export class ArtoolkitEditorComponent implements OnInit {
 
     resourceImageList: Array<string>;
 
+
+    // Blockly
     public toolbox: string =
-    `<xml id="toolbox" style="display: none">
-        <category name="Actions">
-            <block type="augment_resource"></block>
-        </category>
-        <category name="Events">
-            <block type="marker_is_detected"></block>
-        </category>
-    </xml>`;
+        `<xml id="toolbox" style="display: none">
+            <category name="Events">
+                <block type="marker_is_detected"></block>
+            </category>
+            <category name="Actions">
+                <block type="augment_resource"></block>
+            </category>
+        </xml>`;
+
+    workspacePlayground: any;
 
     constructor(
         private modalService: NgbModal,
@@ -82,7 +86,7 @@ export class ArtoolkitEditorComponent implements OnInit {
     createBlocks() {
         var blocklyArea: HTMLElement = document.getElementById('blocklyArea');
         var blocklyDiv = document.getElementById('blocklyDiv');
-        var workspacePlayground = Blockly.inject(blocklyDiv,
+        this.workspacePlayground = Blockly.inject(blocklyDiv,
             { toolbox: this.toolbox });
         var onresize = function (e) {
             // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -102,42 +106,63 @@ export class ArtoolkitEditorComponent implements OnInit {
         };
         window.addEventListener('resize', onresize, false);
         onresize(1);
-        Blockly.svgResize(workspacePlayground);
+        Blockly.svgResize(this.workspacePlayground);
     }
 
     addCustomBlocks() {
-        Blockly.Blocks['augment_resource'] = {
+        Blockly.Blocks['marker_is_detected'] = {
             init: function () {
                 this.appendDummyInput()
-                    .appendField("Augment")
-                    .appendField(new Blockly.FieldDropdown([[{ "src": "https://www.gstatic.com/codesite/ph/images/star_on.gif", "width": 15, "height": 15, "alt": "*" }, "OPTIONNAME"]]), "RESOURCE");
+                    .appendField("When marker")
+                    .appendField(new Blockly.FieldTextInput("MARKER NAME"), "MARKER_NAME")
+                    .appendField("is detected");
                 this.appendValueInput("EVENT")
-                    .setCheck("Event")
-                    .appendField("when");
+                    .setCheck("Action");
                 this.setInputsInline(true);
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
-                this.setColour(300);
+                this.setColour(285);
+                this.setTooltip("Event when a marker is detected");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['augment_resource'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("augment")
+                    .appendField(new Blockly.FieldTextInput("RESOURCE NAME"), "RESOURCE_NAME");
+                this.setInputsInline(true);
+                this.setOutput(true, "Action");
+                this.setColour(240);
                 this.setTooltip("Augment a resource");
                 this.setHelpUrl("");
             }
         };
 
-        Blockly.Blocks['marker_is_detected'] = {
-            init: function () {
-                this.appendDummyInput()
-                    .appendField(new Blockly.FieldDropdown([[{ "src": "https://www.gstatic.com/codesite/ph/images/star_on.gif", "width": 15, "height": 15, "alt": "*" }, "OPTIONNAME"]]), "MARKER")
-                    .appendField("is detected");
-                this.setOutput(true, "Event");
-                this.setColour(0);
-                this.setTooltip("Event when a marker is detected");
-                this.setHelpUrl("");
-            }
+        Blockly.JavaScript['augment_resource'] = function (block) {
+            var text_resource_name = block.getFieldValue('RESOURCE_NAME');
+            // TODO: Assemble JavaScript into code variable.
+            var code = text_resource_name;
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+
+        Blockly.JavaScript['marker_is_detected'] = function (block) {
+            var text_marker_name = block.getFieldValue('MARKER_NAME');
+            var value_event = Blockly.JavaScript.valueToCode(block, 'EVENT', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'Join marker: ' + text_marker_name + ' with resource: ' + value_event;
+            return code;
         };
     }
 
     openAddMarkerModal(content) {
         this.addMarkerModalReference = this.modalService.open(content);
+        var code = Blockly.JavaScript.workspaceToCode(this.workspacePlayground);
+        console.log(code);
+
+
     }
 
     openAddResourceModal(content) {
